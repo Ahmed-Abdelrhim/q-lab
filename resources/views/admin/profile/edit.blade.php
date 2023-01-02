@@ -52,5 +52,5 @@
 
 @endsection
 @section('scripts')
-    <script src="{{url('js/admin/profile.js')}}"></script>
+    <script src="{{asset('js/admin/profile.js')}}"></script>
 @endsection

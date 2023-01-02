@@ -8,12 +8,8 @@ use App\Http\Requests\Admin\UpdateProfileRequest;
 use App\Models\User;
 class ProfileController extends Controller
 {
-    /**
-     * Show the form for editing profile
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
+
+    public function edit(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.profile.edit');
     }
@@ -30,7 +26,7 @@ class ProfileController extends Controller
         $user=User::findOrFail(auth()->guard('admin')->user()->id);
         $user->name=$request->name;
         $user->email=$request->email;
-    
+
         //optional updating password
         if(!empty($request['password']))
         {
@@ -46,12 +42,12 @@ class ProfileController extends Controller
             $signature->move('uploads/signature',$signature_name);
             $user->signature=$signature_name;
         }
-        
+
         $user->save();
 
         session()->flash('success',__('Profile updated successfully'));
 
         return redirect()->route('admin.profile.edit');
-        
-    }    
+
+    }
 }
